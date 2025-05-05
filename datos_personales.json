@@ -1,0 +1,22 @@
+{
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "edad": 30,
+    "email": "juan.perez@example.com",
+    "direccion": {
+        "calle": "Av. Siempre Viva",
+        "numero": 123,
+        "ciudad": "Springfield",
+        "pais": "USA"
+    },
+    "telefonos": [
+        {
+            "tipo": "casa",
+            "numero": "555-1234"
+        },
+        {
+            "tipo": "movil",
+            "numero": "555-5678"
+        }
+    ]
+}
