@@ -56,6 +56,8 @@ urlpatterns = [
     # path('', include('applications.employee.urls')),
     # path('', include('applications.humanresources.urls')),
 
+    path('api/login/', TokenObtainPairView.as_view(), name='login'),
+    path('api/logout/', TokenBlacklistView.as_view(), name='logout'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
 ]
