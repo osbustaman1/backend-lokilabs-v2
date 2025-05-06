@@ -1,12 +1,8 @@
-from django.db import models
-from model_utils.models import TimeStampedModel
-
 from applications.security.models import Country, Region, Commune
-
-
+from django.db import models
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
-
+from model_utils.models import TimeStampedModel
 from remunerations.choices import HEALTH_ENTITY_TYPE, TYPE_INSTITUTIONS, YES_NO_OPTIONS
 
 # Create your models here.

@@ -15,10 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from decouple import config
 
 from rest_framework import permissions
-from rest_framework import routers
-from rest_framework.documentation import include_docs_urls
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
@@ -42,22 +41,24 @@ schema_view = get_schema_view(
 )
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
-    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    # path('', include('applications.security.urls')),
-    # path('', include('applications.administrator.urls')),
-    # path('', include('applications.company.urls')),
-    # path('', include('applications.employee.urls')),
-    # path('', include('applications.humanresources.urls')),
+    #path('', include('applications.security.urls')),
+    #path('', include('applications.administrator.urls')),
+    path('', include('applications.company.urls')),
+    #path('', include('applications.employee.urls')),
+    path('', include('applications.humanresources.urls')),
 
     path('api/login/', TokenObtainPairView.as_view(), name='login'),
     path('api/logout/', TokenBlacklistView.as_view(), name='logout'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
 ]
+
+if config('DEVELOPMENT_ENVIROMENT', default=False, cast=bool):
+    urlpatterns += [
+        path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+        path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+        path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    ]

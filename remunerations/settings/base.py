@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from datetime import timedelta
-import os
-import sys
 from pathlib import Path
 from decouple import config
 
@@ -24,20 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 
-DEBUG = True
+DEBUG = config('DEVELOPMENT_ENVIROMENT', default=False, cast=bool)
 ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS = False
-# CORS_ALLOWED_ORIGINS = [
-# 	"http://alexis.localhost:5173",
-#     "http://localhost:5173",
-#     "http://localhost:5174"
-# ]
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https?://(\w+\.)?localhost(:\d+)?$",
     r"^https?://(\w+\.)?lokilabs.cl(:\d+)?$"
 ]
-
 
 CORS_ALLOW_HEADERS = [
     "token",
