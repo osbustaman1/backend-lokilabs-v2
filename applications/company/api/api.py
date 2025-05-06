@@ -12,7 +12,9 @@ from applications.company.api.serializer import (
     PositionSerializer,
     CenterCostSerializer,
     HealthSerializer,
-    AfpSerializer
+    AfpSerializer,
+    InstitutionsApvSerializer,
+    BankSerializer
 )
 from applications.company.models import (
     MutualSecurity, 
@@ -24,7 +26,9 @@ from applications.company.models import (
     Position, 
     CenterCost,
     Health,
-    Afp
+    Afp,
+    InstitutionsApv,
+    Bank
 )
 from applications.security.models import Country, Region, Commune
 from django.shortcuts import get_object_or_404
@@ -618,3 +622,94 @@ class AfpRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Afp.objects.all()
     serializer_class = AfpSerializer
+
+
+@method_decorator(institutions_apv_list_schema, name='get')
+@method_decorator(institutions_apv_create_schema, name='post')
+@verify_token_cls
+class InstitutionsApvListCreateView(generics.ListCreateAPIView):
+    """
+    View para manejar la obtención y creación de instituciones APV.
+
+    - GET: Obtiene la lista de instituciones APV.
+    - POST: Crea una nueva institución APV.
+
+    Decoradores:
+    - `institutions_apv_list_schema`: Documenta el GET.
+    - `institutions_apv_create_schema`: Documenta el POST.
+    - `verify_token_cls`: Requiere autenticación por JWT.
+
+    Atributos:
+    - queryset: Todas las instituciones APV.
+    - serializer_class: InstitutionsApvSerializer.
+    """
+    queryset = InstitutionsApv.objects.all()
+    serializer_class = InstitutionsApvSerializer
+
+@method_decorator(institutions_apv_detail_schema, name='get')
+@method_decorator(institutions_apv_update_schema, name='put')
+@method_decorator(institutions_apv_delete_schema, name='delete')
+@verify_token_cls
+class InstitutionsApvRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    View para obtener, actualizar o eliminar una institución APV por ID.
+
+    Métodos documentados:
+    - `institutions_apv_detail_schema`: GET
+    - `institutions_apv_update_schema`: PUT
+    - `institutions_apv_delete_schema`: DELETE
+
+    También requiere autenticación con `verify_token_cls`.
+
+    Atributos:
+    - queryset: Todas las instituciones APV.
+    - serializer_class: InstitutionsApvSerializer.
+    """
+    queryset = InstitutionsApv.objects.all()
+    serializer_class = InstitutionsApvSerializer
+
+
+
+@method_decorator(bank_list_schema, name='get')
+@method_decorator(bank_create_schema, name='post')
+@verify_token_cls
+class BankListCreateView(generics.ListCreateAPIView):
+    """
+    View para manejar la obtención y creación de bancos.
+
+    - GET: Obtiene la lista de bancos.
+    - POST: Crea un nuevo banco.
+
+    Decoradores:
+    - `bank_list_schema`: Documenta el GET.
+    - `bank_create_schema`: Documenta el POST.
+    - `verify_token_cls`: Requiere autenticación por JWT.
+
+    Atributos:
+    - queryset: Todos los bancos.
+    - serializer_class: BankSerializer.
+    """
+    queryset = Bank.objects.all()
+    serializer_class = BankSerializer
+
+@method_decorator(bank_detail_schema, name='get')
+@method_decorator(bank_update_schema, name='put')
+@method_decorator(bank_delete_schema, name='delete')
+@verify_token_cls
+class BankRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    View para obtener, actualizar o eliminar un banco por ID.
+
+    Métodos documentados:
+    - `bank_detail_schema`: GET
+    - `bank_update_schema`: PUT
+    - `bank_delete_schema`: DELETE
+
+    También requiere autenticación con `verify_token_cls`.
+
+    Atributos:
+    - queryset: Todos los bancos.
+    - serializer_class: BankSerializer.
+    """
+    queryset = Bank.objects.all()
+    serializer_class = BankSerializer

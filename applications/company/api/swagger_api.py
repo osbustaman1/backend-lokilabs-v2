@@ -14,7 +14,9 @@ from applications.company.api.serializer import (
     PositionSerializer,
     CenterCostSerializer,
     HealthSerializer,
-    AfpSerializer
+    AfpSerializer,
+    InstitutionsApvSerializer,
+    BankSerializer
 )
 
 jwt_header = openapi.Parameter(
@@ -772,5 +774,121 @@ afp_delete_schema = swagger_auto_schema(
         204: openapi.Response("AFP eliminada con éxito"),
         401: openapi.Response("Unauthorized"),
         404: openapi.Response("AFP no encontrada"),
+    }
+)
+
+
+# Documentación para obtener la lista de instituciones APV (GET)
+institutions_apv_list_schema = swagger_auto_schema(
+    operation_description="Lista todas las instituciones APV registradas. Se requiere un token JWT.",
+    manual_parameters=[jwt_header],
+    responses={
+        200: InstitutionsApvSerializer(many=True),
+        401: openapi.Response("Unauthorized"),
+    }
+)
+
+# Documentación para crear una nueva institución APV (POST)
+institutions_apv_create_schema = swagger_auto_schema(
+    operation_description="Crea una nueva institución APV. Se requiere un token JWT.",
+    manual_parameters=[jwt_header],
+    request_body=InstitutionsApvSerializer,
+    responses={
+        201: InstitutionsApvSerializer,
+        400: openapi.Response("Error en la solicitud"),
+        401: openapi.Response("Unauthorized"),
+    }
+)
+
+# Documentación para obtener una institución APV por ID (GET)
+institutions_apv_detail_schema = swagger_auto_schema(
+    operation_description="Obtiene una institución APV específica por ID. Se requiere un token JWT.",
+    manual_parameters=[jwt_header],
+    responses={
+        200: InstitutionsApvSerializer,
+        401: openapi.Response("Unauthorized"),
+        404: openapi.Response("Institución APV no encontrada"),
+    }
+)
+
+# Documentación para actualizar una institución APV (PUT)
+institutions_apv_update_schema = swagger_auto_schema(
+    operation_description="Actualiza una institución APV por ID. Se requiere un token JWT.",
+    manual_parameters=[jwt_header],
+    request_body=InstitutionsApvSerializer,
+    responses={
+        200: InstitutionsApvSerializer,
+        400: openapi.Response("Error en la solicitud"),
+        401: openapi.Response("Unauthorized"),
+        404: openapi.Response("Institución APV no encontrada"),
+    }
+)
+
+# Documentación para eliminar una institución APV (DELETE)
+institutions_apv_delete_schema = swagger_auto_schema(
+    operation_description="Elimina una institución APV por ID. Se requiere un token JWT.",
+    manual_parameters=[jwt_header],
+    responses={
+        204: openapi.Response("Institución APV eliminada con éxito"),
+        401: openapi.Response("Unauthorized"),
+        404: openapi.Response("Institución APV no encontrada"),
+    }
+)
+
+
+# Documentación para obtener la lista de bancos (GET)
+bank_list_schema = swagger_auto_schema(
+    operation_description="Lista todos los bancos registrados. Se requiere un token JWT.",
+    manual_parameters=[jwt_header],
+    responses={
+        200: BankSerializer(many=True),
+        401: openapi.Response("Unauthorized"),
+    }
+)
+
+# Documentación para crear un nuevo banco (POST)
+bank_create_schema = swagger_auto_schema(
+    operation_description="Crea un nuevo banco. Se requiere un token JWT.",
+    manual_parameters=[jwt_header],
+    request_body=BankSerializer,
+    responses={
+        201: BankSerializer,
+        400: openapi.Response("Error en la solicitud"),
+        401: openapi.Response("Unauthorized"),
+    }
+)
+
+# Documentación para obtener un banco por ID (GET)
+bank_detail_schema = swagger_auto_schema(
+    operation_description="Obtiene un banco específico por ID. Se requiere un token JWT.",
+    manual_parameters=[jwt_header],
+    responses={
+        200: BankSerializer,
+        401: openapi.Response("Unauthorized"),
+        404: openapi.Response("Banco no encontrado"),
+    }
+)
+
+# Documentación para actualizar un banco (PUT)
+bank_update_schema = swagger_auto_schema(
+    operation_description="Actualiza un banco por ID. Se requiere un token JWT.",
+    manual_parameters=[jwt_header],
+    request_body=BankSerializer,
+    responses={
+        200: BankSerializer,
+        400: openapi.Response("Error en la solicitud"),
+        401: openapi.Response("Unauthorized"),
+        404: openapi.Response("Banco no encontrado"),
+    }
+)
+
+# Documentación para eliminar un banco (DELETE)
+bank_delete_schema = swagger_auto_schema(
+    operation_description="Elimina un banco por ID. Se requiere un token JWT.",
+    manual_parameters=[jwt_header],
+    responses={
+        204: openapi.Response("Banco eliminado con éxito"),
+        401: openapi.Response("Unauthorized"),
+        404: openapi.Response("Banco no encontrado"),
     }
 )

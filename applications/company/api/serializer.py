@@ -10,7 +10,9 @@ from applications.company.models import (
     Position, 
     CenterCost, 
     Health,
-    Afp
+    Afp,
+    InstitutionsApv,
+    Bank
 )
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -210,4 +212,35 @@ class AfpSerializer(serializers.ModelSerializer):
             "afp_sis": instance.afp_sis,
             "afp_self_employed_worker_rate": instance.afp_self_employed_worker_rate,
             "afp_active": instance.get_afp_active_display()  # Valor legible del choice
+        }
+
+
+class InstitutionsApvSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InstitutionsApv
+        fields = '__all__'
+        read_only_fields = ['apv_id']  # AutoField es de solo lectura
+
+    def to_representation(self, instance):
+        return {
+            "apv_id": instance.apv_id,
+            "apv_code": instance.apv_code,
+            "apv_name": instance.apv_name,
+            "apv_type": instance.get_apv_type_display(),  # Muestra el valor legible del choice
+            "apv_active": instance.get_apv_active_display()
+        }
+
+
+class BankSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bank
+        fields = ['ban_id', 'ban_name', 'ban_code', 'ban_active']
+        read_only_fields = ['ban_id']  # AutoField es de solo lectura
+
+    def to_representation(self, instance):
+        return {
+            "ban_id": instance.ban_id,
+            "ban_name": instance.ban_name,
+            "ban_code": instance.ban_code,
+            "ban_active": instance.get_ban_active_display()  # Valor legible del choice
         }

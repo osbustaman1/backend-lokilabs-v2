@@ -27,6 +27,10 @@ from applications.company.api.api import (
     HealthRetrieveUpdateDestroyView,
     AfpListCreateView,
     AfpRetrieveUpdateDestroyView,
+    InstitutionsApvListCreateView,
+    InstitutionsApvRetrieveUpdateDestroyView,
+    BankListCreateView,
+    BankRetrieveUpdateDestroyView,
 )
 
 urlpatterns = [
@@ -68,4 +72,10 @@ urlpatterns = [
 
     path('afps/', AfpListCreateView.as_view(), name='afp-list-create'),
     path('afps/<int:pk>/', AfpRetrieveUpdateDestroyView.as_view(), name='afp-detail'),
+
+    path('institutions-apvs/', InstitutionsApvListCreateView.as_view(), name='institutions-apv-list-create'),
+    path('institutions-apvs/<int:pk>/', InstitutionsApvRetrieveUpdateDestroyView.as_view(), name='institutions-apv-detail'),
+
+    path('banks/', BankListCreateView.as_view(), name='bank-list-create'),
+    path('banks/<int:pk>/', BankRetrieveUpdateDestroyView.as_view(), name='bank-detail'),
 ]
