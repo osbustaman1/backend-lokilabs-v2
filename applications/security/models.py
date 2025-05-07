@@ -102,7 +102,7 @@ class Menu(TimeStampedModel):
     m_active = models.CharField("Activo", max_length=1, choices=ACTIVE, default="Y")
 
     def __int__(self):
-        return self.ee_id
+        return self.m_id
 
     def __str__(self):
         return f"{self.m_id} - {self.m_user}"

@@ -44,10 +44,10 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    #path('', include('applications.security.urls')),
+    path('', include('applications.security.urls')),
     #path('', include('applications.administrator.urls')),
     path('', include('applications.company.urls')),
-    #path('', include('applications.employee.urls')),
+    path('', include('applications.employee.urls')),
     path('', include('applications.humanresources.urls')),
 
     path('api/login/', TokenObtainPairView.as_view(), name='login'),
